@@ -169,6 +169,11 @@
     padding:28px 24px;
   }
   .section.alt .lms-card{background:var(--bg-void);}
+  .lms-photo{
+    width:64px;height:64px;border-radius:50%;overflow:hidden;
+    margin-bottom:16px;background:var(--bg-surface);border:1px solid var(--line);
+  }
+  .lms-photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .lms-month{
     font-family:var(--font-en);color:var(--accent);font-weight:600;
     font-size:0.85rem;letter-spacing:0.08em;margin-bottom:14px;
@@ -219,14 +224,12 @@
   .event-caption{margin-top:4px;color:var(--text-tertiary);font-size:0.82rem;}
 
   /* member */
-  .member-grid{display:grid;gap:22px;grid-template-columns:repeat(3,1fr);margin-top:8px;}
+  .member-grid{display:grid;gap:10px;grid-template-columns:repeat(3,1fr);margin-top:8px;max-width:520px;}
   .member-photo{
-    aspect-ratio:3/4;border-radius:4px;overflow:hidden;
+    aspect-ratio:2/3;border-radius:8px;overflow:hidden;
     background:var(--bg-surface-2);
   }
   .member-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-  .member-name{margin-top:16px;font-weight:800;font-size:1.05rem;}
-  .member-role{margin-top:2px;color:var(--text-tertiary);font-size:0.85rem;}
 
   /* survey */
   .survey-date-strong{
@@ -426,14 +429,17 @@
       </div>
       <div class="lms-grid">
         <div class="lms-card reveal">
+          <div class="lms-photo"><img src="images/choi-eunju.jpg" alt="최은주 전문위원" loading="lazy"></div>
           <div class="lms-month">OCT · 10월</div>
           <div class="lms-speaker">최은주 전문위원</div>
         </div>
         <div class="lms-card reveal">
+          <div class="lms-photo"><img src="images/jung-sungwoo.jpg" alt="정성우 세무사" loading="lazy"></div>
           <div class="lms-month">NOV · 11월</div>
           <div class="lms-speaker">정성우 세무사</div>
         </div>
         <div class="lms-card reveal">
+          <div class="lms-photo"><img src="images/kim-hyungseok.jpg" alt="김형석 세무사" loading="lazy"></div>
           <div class="lms-month">DEC · 12월</div>
           <div class="lms-speaker">김형석 세무사</div>
         </div>
@@ -490,21 +496,9 @@
         <p class="section-lead">After-VCC를 함께 만들어가는 사업단 구성원입니다.</p>
       </div>
       <div class="member-grid">
-        <div class="member-card reveal">
-          <div class="member-photo"><img src="images/choi-eunju.jpg" alt="최은주 전문위원" loading="lazy"></div>
-          <div class="member-name">최은주</div>
-          <div class="member-role">전문위원</div>
-        </div>
-        <div class="member-card reveal">
-          <div class="member-photo"><img src="images/jung-sungwoo.jpg" alt="정성우 세무사" loading="lazy"></div>
-          <div class="member-name">정성우</div>
-          <div class="member-role">세무사</div>
-        </div>
-        <div class="member-card reveal">
-          <div class="member-photo"><img src="images/kim-hyungseok.jpg" alt="김형석 세무사" loading="lazy"></div>
-          <div class="member-name">김형석</div>
-          <div class="member-role">세무사</div>
-        </div>
+        <div class="member-photo reveal"><img src="images/choi-eunju.jpg" alt="최은주 전문위원" loading="lazy"></div>
+        <div class="member-photo reveal"><img src="images/jung-sungwoo.jpg" alt="정성우 세무사" loading="lazy"></div>
+        <div class="member-photo reveal"><img src="images/kim-hyungseok.jpg" alt="김형석 세무사" loading="lazy"></div>
       </div>
     </div>
   </section>
