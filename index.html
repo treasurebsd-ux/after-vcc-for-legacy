@@ -224,12 +224,61 @@
   .event-caption{margin-top:4px;color:var(--text-tertiary);font-size:0.82rem;}
 
   /* member */
-  .member-grid{display:grid;gap:10px;grid-template-columns:repeat(3,1fr);margin-top:8px;max-width:520px;}
-  .member-photo{
-    aspect-ratio:2/3;border-radius:8px;overflow:hidden;
-    background:var(--bg-surface-2);
+  .reveal-scale{opacity:0;transform:scale(.94);transition:opacity 1s ease, transform 1s ease;}
+  .reveal-scale.in-view{opacity:1;transform:scale(1);}
+  .sec_team_group{
+    width:100%;border-radius:8px;overflow:hidden;margin:8px 0 40px;
+    border:1px solid var(--line-strong);box-shadow:0 20px 60px rgba(0,0,0,.35);
   }
-  .member-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .sec_team_group img{width:100%;height:auto;display:block;}
+  .sec_team_grid{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;}
+  .sec_team_card{
+    position:relative;border-radius:8px;overflow:hidden;aspect-ratio:2/3;
+    border:1px solid var(--line);cursor:pointer;background:var(--bg-surface-2);
+  }
+  .sec_team_card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+  .sec_team_card:hover img{transform:scale(1.06);}
+  .sec_team_card::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 55%,rgba(9,10,15,.75) 100%);
+  }
+  @media (max-width:900px){
+    .sec_team_grid{grid-template-columns:repeat(4,1fr);gap:8px;}
+  }
+
+  #memberModal{
+    display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(9,10,15,.88);align-items:center;justify-content:center;
+    padding:24px;box-sizing:border-box;
+  }
+  #memberModal.open{display:flex;}
+  #memberModal .modal_card{
+    position:relative;width:100%;max-width:380px;
+    background:linear-gradient(180deg,var(--bg-surface-2) 0%,var(--bg-void) 100%);
+    border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);text-align:center;padding-bottom:34px;
+  }
+  #memberModal .modal_img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;}
+  #memberModal .modal_office{
+    margin-top:26px;font-size:12px;letter-spacing:3px;color:var(--accent);
+    text-transform:uppercase;font-weight:600;
+  }
+  #memberModal .modal_name{
+    margin-top:10px;font-family:var(--font-body);font-weight:800;
+    font-size:26px;color:var(--text-primary);
+  }
+  #memberModal .modal_link{
+    display:inline-flex;align-items:center;gap:6px;margin-top:16px;
+    font-size:14px;color:var(--text-secondary);text-decoration:none;
+    letter-spacing:.5px;border-bottom:1px solid var(--line-strong);padding-bottom:2px;
+  }
+  #memberModal .modal_link:hover{color:var(--accent);}
+  #memberModal .modal_close{
+    position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;
+    background:rgba(10,9,18,.7);border:1px solid var(--line-strong);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    font-size:16px;z-index:2;
+  }
 
   /* survey */
   .survey-date-strong{
@@ -339,10 +388,8 @@
   .hero-inner .reveal:nth-child(1){transition-delay:0s;}
   .hero-inner .reveal:nth-child(2){transition-delay:.12s;}
   .hero-inner .reveal:nth-child(3){transition-delay:.24s;}
-  .member-grid .reveal:nth-child(1){transition-delay:.05s;}
-  .member-grid .reveal:nth-child(2){transition-delay:.15s;}
-  .member-grid .reveal:nth-child(3){transition-delay:.25s;}
 </style>
+<noscript><style>.reveal,.reveal-scale{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body>
 
@@ -493,15 +540,58 @@
       <div class="section-head reveal">
         <p class="section-eyebrow">Member</p>
         <h2 class="section-title">MEMBER</h2>
-        <p class="section-lead">After-VCC를 함께 만들어가는 사업단 구성원입니다.</p>
+        <p class="section-lead">After-VCC를 함께 만들어가는 레거시 사업단 파트너 전문가들입니다.</p>
       </div>
-      <div class="member-grid">
-        <div class="member-photo reveal"><img src="images/choi-eunju.jpg" alt="최은주 전문위원" loading="lazy"></div>
-        <div class="member-photo reveal"><img src="images/jung-sungwoo.jpg" alt="정성우 세무사" loading="lazy"></div>
-        <div class="member-photo reveal"><img src="images/kim-hyungseok.jpg" alt="김형석 세무사" loading="lazy"></div>
+      <div class="sec_team_group reveal-scale"><img src="images/team/team-group.jpg" alt="레거시 사업단 멤버 단체사진" loading="lazy"></div>
+      <div class="sec_team_grid" id="teamGrid">
+        <div class="sec_team_card" data-idx="1" onclick="openMemberModal(1)"><img src="images/team/team-01.jpg" alt="박병곤 회계사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="2" onclick="openMemberModal(2)"><img src="images/team/team-02.jpg" alt="김철현 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="3" onclick="openMemberModal(3)"><img src="images/team/team-03.jpg" alt="유상연 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="4" onclick="openMemberModal(4)"><img src="images/team/team-04.jpg" alt="김성종 노무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="5" onclick="openMemberModal(5)"><img src="images/team/team-05.jpg" alt="유연선 매니저" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="6" onclick="openMemberModal(6)"><img src="images/team/team-06.jpg" alt="임세현 매니저" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="7" onclick="openMemberModal(7)"><img src="images/team/team-07.jpg" alt="황지환 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="8" onclick="openMemberModal(8)"><img src="images/team/team-08.jpg" alt="김형석 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="9" onclick="openMemberModal(9)"><img src="images/team/team-09.jpg" alt="염지훈 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="10" onclick="openMemberModal(10)"><img src="images/team/team-10.jpg" alt="김희연 회계사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="24" onclick="openMemberModal(24)"><img src="images/team/team-24.jpg" alt="김찬희 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="11" onclick="openMemberModal(11)"><img style="object-position:50% 0%" src="images/team/team-11.jpg" alt="김헤리 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="12" onclick="openMemberModal(12)"><img src="images/team/team-12.jpg" alt="김도용 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="13" onclick="openMemberModal(13)"><img src="images/team/team-13.jpg" alt="박성훈 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="14" onclick="openMemberModal(14)"><img src="images/team/team-14.jpg" alt="한성민 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="15" onclick="openMemberModal(15)"><img src="images/team/team-15.jpg" alt="황장훈 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="16" onclick="openMemberModal(16)"><img src="images/team/team-16.jpg" alt="손영권 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="17" onclick="openMemberModal(17)"><img src="images/team/team-17.jpg" alt="오규성 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="18" onclick="openMemberModal(18)"><img src="images/team/team-18.jpg" alt="오성우 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="19" onclick="openMemberModal(19)"><img src="images/team/team-19.jpg" alt="김세현 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="20" onclick="openMemberModal(20)"><img src="images/team/team-20.jpg" alt="이도해 회계사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="21" onclick="openMemberModal(21)"><img src="images/team/team-21.jpg" alt="이원길 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="22" onclick="openMemberModal(22)"><img src="images/team/team-22.jpg" alt="박수진 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="23" onclick="openMemberModal(23)"><img src="images/team/team-23.jpg" alt="윤혜림 노무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="25" onclick="openMemberModal(25)"><img src="images/team/team-25.jpg" alt="강윤석 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="26" onclick="openMemberModal(26)"><img src="images/team/team-26.jpg" alt="김대민 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="27" onclick="openMemberModal(27)"><img src="images/team/team-27.jpg" alt="박광종 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="28" onclick="openMemberModal(28)"><img src="images/team/team-28.jpg" alt="이금동 회계사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="29" onclick="openMemberModal(29)"><img src="images/team/team-29.jpg" alt="이재룡 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="30" onclick="openMemberModal(30)"><img src="images/team/team-30.jpg" alt="이준일 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="31" onclick="openMemberModal(31)"><img src="images/team/team-31.jpg" alt="정성권 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="32" onclick="openMemberModal(32)"><img src="images/team/team-32.jpg" alt="윤희선 세무사" loading="lazy"></div>
       </div>
     </div>
   </section>
+
+  <div id="memberModal" onclick="closeMemberModal(event)">
+    <div class="modal_card" onclick="event.stopPropagation()">
+      <div class="modal_close" onclick="closeMemberModal(event)">&times;</div>
+      <img id="modalImg" class="modal_img" src="" alt="">
+      <p id="modalOffice" class="modal_office"></p>
+      <p id="modalName" class="modal_name"></p>
+      <a id="modalLink" class="modal_link" href="#" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+        <span id="modalLinkText"></span>
+      </a>
+    </div>
+  </div>
 
   <section class="section alt" id="survey">
     <div class="wrap">
@@ -567,7 +657,7 @@
 (function(){
   // scroll-reveal + sticky-nav shadow
   var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealEls = document.querySelectorAll('.reveal');
+  var revealEls = document.querySelectorAll('.reveal, .reveal-scale');
   if(!reduceMotion && 'IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -578,6 +668,11 @@
       });
     }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
     revealEls.forEach(function(el){ io.observe(el); });
+    // safety net: if an element somehow never triggers the observer
+    // (edge cases in some embedded/webview browsers), force it visible.
+    setTimeout(function(){
+      revealEls.forEach(function(el){ el.classList.add('in-view'); });
+    }, 2500);
   } else {
     revealEls.forEach(function(el){ el.classList.add('in-view'); });
   }
@@ -671,6 +766,60 @@
     });
   });
 })();
+</script>
+
+<script>
+const memberData = {
+  1: {office:'동성회계법인', name:'박병곤 회계사', linkUrl:'https://instagram.com/accountingmoney', linkLabel:'@accountingmoney'},
+  2: {office:'세무법인 포디움', name:'김철현 세무사', linkUrl:'https://instagram.com/treasure.bsd', linkLabel:'@treasure.bsd'},
+  3: {office:'동성회계법인', name:'유상연 세무사', linkUrl:'https://instagram.com/accountingmoney', linkLabel:'@accountingmoney'},
+  4: {office:'노무법인 태율', name:'김성종 노무사', linkUrl:'https://instagram.com/thetaeyul', linkLabel:'@thetaeyul'},
+  5: {office:'리치디바인 레거시 사업단', name:'유연선 매니저', linkUrl:'https://instagram.com/hi___legacy', linkLabel:'@hi___legacy'},
+  6: {office:'리치디바인 레거시 사업단', name:'임세현 매니저', linkUrl:'https://instagram.com/hi___legacy', linkLabel:'@hi___legacy'},
+  7: {office:'세무법인엑스퍼트', name:'황지환 세무사', linkUrl:'https://taxexpert.kr/', linkLabel:'공식 사이트 바로가기'},
+  8: {office:'더프라임세무회계사무소', name:'김형석 세무사', linkUrl:'https://blog.naver.com/taxdarin', linkLabel:'블로그 바로가기'},
+  9: {office:'가현 세무법인', name:'염지훈 세무사', linkUrl:'https://instagram.com/taxbro_', linkLabel:'@taxbro_'},
+  10: {office:'디자인텍스', name:'김희연 회계사', linkUrl:'https://instagram.com/designtax', linkLabel:'@designtax'},
+  24: {office:'신승세무법인', name:'김찬희 세무사', linkUrl:'https://blog.naver.com/chalie_tax', linkLabel:'블로그 바로가기'},
+  11: {office:'세무법인HKL', name:'김헤리 세무사', linkUrl:'https://www.youtube.com/@국세언니', linkLabel:'유튜브 채널 바로가기'},
+  12: {office:'다힘세무회계', name:'김도용 세무사', linkUrl:'https://instagram.com/theworldtax_kimhyeri', linkLabel:'@theworldtax_kimhyeri'},
+  13: {office:'다우세무컨설팅', name:'박성훈 세무사', linkUrl:'https://instagram.com/dautax_hun', linkLabel:'@dautax_hun'},
+  14: {office:'달란트택스', name:'한성민 세무사', linkUrl:'https://instagram.com/nopaytax_kr', linkLabel:'@nopaytax_kr'},
+  15: {office:'JS세무회계', name:'황장훈 세무사', linkUrl:'https://www.jssemu.com/', linkLabel:'공식 사이트 바로가기'},
+  16: {office:'손영권세무사사무소', name:'손영권 세무사', linkUrl:'https://instagram.com/son_semusa', linkLabel:'@son_semusa'},
+  17: {office:'오규성 세무회계', name:'오규성 세무사', linkUrl:'https://instagram.com/oks_tax_official', linkLabel:'@oks_tax_official'},
+  18: {office:'세무회계 대성', name:'오성우 세무사', linkUrl:'https://blog.naver.com/otaxpro911', linkLabel:'블로그 바로가기'},
+  19: {office:'스페셜세무회계', name:'김세현 세무사', linkUrl:'https://blog.naver.com/kshtaxtax', linkLabel:'블로그 바로가기'},
+  20: {office:'NICE피앤아이', name:'이도해 회계사', linkUrl:'https://www.nicepni.co.kr/', linkLabel:'공식 사이트 바로가기'},
+  21: {office:'하이앤드 텍스', name:'이원길 세무사', linkUrl:'https://www.highendtax.co.kr/', linkLabel:'공식 사이트 바로가기'},
+  22: {office:'세무법인 혜움', name:'박수진 세무사', linkUrl:'https://www.heumtax.com/', linkLabel:'공식 사이트 바로가기'},
+  23: {office:'윤율인사노무컨설팅', name:'윤혜림 노무사', linkUrl:'https://instagram.com/hrcpla__', linkLabel:'@hrcpla__'},
+  25: {office:'세무회계담솔', name:'강윤석 세무사', linkUrl:'https://instagram.com/ctayoonseok', linkLabel:'@ctayoonseok'},
+  26: {office:'세무법인 혜움', name:'김대민 세무사', linkUrl:'https://www.heumtax.com/', linkLabel:'공식 사이트 바로가기'},
+  27: {office:'세무법인 엑스퍼트', name:'박광종 세무사', linkUrl:'https://taxexpert.kr/', linkLabel:'공식 사이트 바로가기'},
+  28: {office:'삼일회계법인', name:'이금동 회계사', linkUrl:'https://instagram.com/thelegacy.tax', linkLabel:'@thelegacy.tax'},
+  29: {office:'신화 세무회계', name:'이재룡 세무사', linkUrl:'https://blog.naver.com/lands23', linkLabel:'블로그 바로가기'},
+  30: {office:'정도세무회계', name:'이준일 세무사', linkUrl:'https://naver.me/FpwSmIGD', linkLabel:'블로그 바로가기'},
+  31: {office:'세무회계 정성', name:'정성권 세무사', linkUrl:'https://blog.naver.com/heartax', linkLabel:'블로그 바로가기'},
+  32: {office:'MK세무회계', name:'윤희선 세무사', linkUrl:'https://instagram.com/_mktax_', linkLabel:'@_mktax_'}
+};
+function openMemberModal(idx){
+  var d = memberData[idx];
+  if(!d) return;
+  var cardImg = document.querySelector('#teamGrid .sec_team_card[data-idx="'+idx+'"] img');
+  document.getElementById('modalImg').src = (cardImg && cardImg.getAttribute('src')) || '';
+  document.getElementById('modalOffice').textContent = d.office;
+  document.getElementById('modalName').textContent = d.name;
+  document.getElementById('modalLinkText').textContent = d.linkLabel;
+  document.getElementById('modalLink').href = d.linkUrl;
+  document.getElementById('memberModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMemberModal(e){
+  if(e) e.preventDefault();
+  document.getElementById('memberModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
 </script>
 
 </body>
