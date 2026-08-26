@@ -204,21 +204,33 @@
   .lms-grid{display:grid;gap:20px;grid-template-columns:repeat(3,1fr);margin-top:8px;}
   .lms-card{
     background:var(--bg-surface-2);border:1px solid var(--line);border-radius:2px;
-    padding:28px 24px;
+    overflow:hidden;
   }
   .section.alt .lms-card{background:var(--bg-void);}
   .lms-photo{
-    width:64px;height:64px;border-radius:50%;overflow:hidden;
-    margin-bottom:16px;background:var(--bg-surface);border:1px solid var(--line);
+    width:100%;overflow:hidden;
+    background:var(--bg-surface);border-bottom:1px solid var(--line);
   }
-  .lms-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .lms-photo img{width:100%;height:auto;display:block;}
+  .lms-body{padding:22px 24px 26px;}
   .lms-month{
     font-family:var(--font-en);color:var(--accent);font-weight:600;
-    font-size:0.85rem;letter-spacing:0.08em;margin-bottom:14px;
+    font-size:0.85rem;letter-spacing:0.08em;margin-bottom:12px;
   }
   .lms-speaker{font-family:var(--font-body);font-weight:800;font-size:1.15rem;}
+  .lms-topic{
+    margin-top:8px;font-size:0.88rem;font-weight:600;color:var(--text-secondary);
+  }
+  .lms-bio{
+    margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
+    min-height:54px;color:var(--text-tertiary);font-size:0.82rem;line-height:1.7;
+  }
 
   /* saturday */
+  .saturday-poster-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr);}
+  .saturday-poster{border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--bg-surface-2);}
+  .saturday-poster img{width:100%;height:auto;display:block;}
+  @media (max-width:720px){.saturday-poster-grid{grid-template-columns:1fr;}}
   .date-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
   .date-chip{
     border:1px solid var(--line-strong);border-radius:999px;
@@ -245,28 +257,37 @@
   .section.alt .callout{background:var(--bg-void);}
   .callout b{color:var(--text-primary);}
 
-  /* events */
-  .event-grid{display:grid;gap:18px;grid-template-columns:repeat(3,1fr);margin-top:8px;}
-  .event-card{
-    border:1px solid var(--line);border-radius:2px;overflow:hidden;
+  /* events — right-to-left marquee, uncropped originals */
+  .event-marquee-wrap{
+    width:100%;overflow:hidden;margin-top:36px;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .event-marquee{
+    display:flex;align-items:flex-end;gap:22px;width:max-content;
+    animation:eventMarquee 52s linear infinite;
+  }
+  .event-marquee:hover{animation-play-state:paused;}
+  @keyframes eventMarquee{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .event-item{
+    position:relative;flex:0 0 auto;height:280px;
+    border-radius:2px;overflow:hidden;border:1px solid var(--line);
     background:var(--bg-surface-2);
   }
-  .event-thumb{
-    aspect-ratio:4/3;
-    background:
-      radial-gradient(circle at 25% 20%, rgba(195,175,250,0.35), transparent 55%),
-      linear-gradient(135deg, #1C1830, #100E1C 70%);
-    position:relative;
+  .event-item img{height:100%;width:auto;display:block;}
+  .event-item-label{
+    position:absolute;left:0;right:0;bottom:0;padding:10px 14px;
+    font-size:0.82rem;font-weight:700;color:#fff;
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,0.72) 75%);
   }
-  html[data-theme="new"] .event-thumb{
-    background:
-      radial-gradient(circle at 25% 20%, rgba(226,89,60,0.4), transparent 55%),
-      linear-gradient(135deg, #2A1712, #180D0A 70%);
+  @media (max-width:720px){.event-item{height:190px;}}
+  @media (prefers-reduced-motion:reduce){
+    .event-marquee{animation:none;}
+    .event-marquee-wrap{overflow-x:auto;}
   }
-  .event-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-  .event-body{padding:16px 18px 20px;}
-  .event-name{font-weight:700;font-size:1rem;}
-  .event-caption{margin-top:4px;color:var(--text-tertiary);font-size:0.82rem;}
 
   /* member */
   .reveal-scale{opacity:0;transform:scale(.94);transition:opacity 1s ease, transform 1s ease;}
@@ -290,6 +311,27 @@
   @media (max-width:900px){
     .sec_team_grid{grid-template-columns:repeat(4,1fr);gap:8px;}
   }
+
+  /* member photo color/mono toggle */
+  .sec_team_group img,.sec_team_card img,#memberModal .modal_img{
+    transition:filter .35s ease, transform .4s ease;
+  }
+  html[data-member-photo="mono"] .sec_team_group img,
+  html[data-member-photo="mono"] .sec_team_card img,
+  html[data-member-photo="mono"] #memberModal .modal_img{
+    filter:grayscale(100%);
+  }
+  .mono-toggle{
+    display:inline-flex;gap:2px;margin-top:20px;padding:4px;border-radius:999px;
+    background:var(--bg-surface-2);border:1px solid var(--line);
+  }
+  .mono-toggle-btn{
+    appearance:none;border:none;cursor:pointer;padding:8px 18px;border-radius:999px;
+    font-family:var(--font-body);font-size:0.82rem;font-weight:700;
+    background:transparent;color:var(--text-secondary);transition:background .2s,color .2s;
+  }
+  .mono-toggle-btn.active{background:var(--accent);color:#150F26;}
+  html[data-theme="new"] .mono-toggle-btn.active{color:#FFF6F0;}
 
   #memberModal{
     display:none;position:fixed;inset:0;z-index:9999;
@@ -421,12 +463,12 @@
   .footer-brand{font-family:var(--font-en);color:var(--text-secondary);}
 
   @media (max-width:760px){
-    .lms-grid,.event-grid{grid-template-columns:1fr 1fr;}
+    .lms-grid{grid-template-columns:1fr 1fr;}
     .timeline::before{left:84px;}
     .t-item{grid-template-columns:84px 1fr;gap:16px;}
   }
   @media (max-width:520px){
-    .lms-grid,.event-grid{grid-template-columns:1fr;}
+    .lms-grid{grid-template-columns:1fr;}
     .hero{padding:100px 0 88px;}
     .section{padding:64px 0;}
   }
@@ -448,12 +490,6 @@
   .date-row .reveal:nth-child(2){transition-delay:.09s;}
   .date-row .reveal:nth-child(3){transition-delay:.15s;}
   .date-row .reveal:nth-child(4){transition-delay:.21s;}
-  .event-grid .reveal:nth-child(1){transition-delay:.03s;}
-  .event-grid .reveal:nth-child(2){transition-delay:.09s;}
-  .event-grid .reveal:nth-child(3){transition-delay:.15s;}
-  .event-grid .reveal:nth-child(4){transition-delay:.21s;}
-  .event-grid .reveal:nth-child(5){transition-delay:.27s;}
-  .event-grid .reveal:nth-child(6){transition-delay:.33s;}
   .hero-inner .reveal:nth-child(1){transition-delay:0s;}
   .hero-inner .reveal:nth-child(2){transition-delay:.12s;}
   .hero-inner .reveal:nth-child(3){transition-delay:.24s;}
@@ -480,6 +516,22 @@
     b.addEventListener('click', function(){ setTheme(b.getAttribute('data-theme-value')); });
   });
   setTheme('');
+})();
+(function(){
+  var toggle = document.getElementById('memberPhotoToggle');
+  if(!toggle) return;
+  var btns = toggle.querySelectorAll('.mono-toggle-btn');
+  function setMode(val){
+    if(val){ document.documentElement.setAttribute('data-member-photo', val); }
+    else { document.documentElement.removeAttribute('data-member-photo'); }
+    btns.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-mode') === val);
+    });
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ setMode(b.getAttribute('data-mode')); });
+  });
+  setMode('');
 })();
 </script>
 </head>
@@ -569,18 +621,30 @@
       <div class="lms-grid">
         <div class="lms-card reveal">
           <div class="lms-photo"><img src="images/choi-eunju.jpg" alt="최은주 전문위원" loading="lazy"></div>
-          <div class="lms-month">OCT · 10월</div>
-          <div class="lms-speaker">최은주 전문위원</div>
+          <div class="lms-body">
+            <div class="lms-month">OCT · 10월</div>
+            <div class="lms-speaker">최은주 전문위원</div>
+            <div class="lms-topic">주제 · 고액자산가 전담 상담</div>
+            <div class="lms-bio">※ 이력은 추후 업데이트됩니다.</div>
+          </div>
         </div>
         <div class="lms-card reveal">
           <div class="lms-photo"><img src="images/jung-sungwoo.jpg" alt="정성우 세무사" loading="lazy"></div>
-          <div class="lms-month">NOV · 11월</div>
-          <div class="lms-speaker">정성우 세무사</div>
+          <div class="lms-body">
+            <div class="lms-month">NOV · 11월</div>
+            <div class="lms-speaker">정성우 세무사</div>
+            <div class="lms-topic">주제 · 클로드 활용</div>
+            <div class="lms-bio">※ 이력은 추후 업데이트됩니다.</div>
+          </div>
         </div>
         <div class="lms-card reveal">
           <div class="lms-photo"><img src="images/kim-hyungseok.jpg" alt="김형석 세무사" loading="lazy"></div>
-          <div class="lms-month">DEC · 12월</div>
-          <div class="lms-speaker">김형석 세무사</div>
+          <div class="lms-body">
+            <div class="lms-month">DEC · 12월</div>
+            <div class="lms-speaker">김형석 세무사</div>
+            <div class="lms-topic">주제 · 농업회사법인</div>
+            <div class="lms-bio">※ 이력은 추후 업데이트됩니다.</div>
+          </div>
         </div>
       </div>
       <p class="fine-note reveal">※ 일정은 추후 공지됩니다.</p>
@@ -593,6 +657,12 @@
         <p class="section-eyebrow">Monthly</p>
         <h2 class="section-title">토요특강</h2>
         <p class="section-lead">매월 1회, 토요일에 진행되는 사업단의 특별 강연입니다.</p>
+      </div>
+      <div class="saturday-poster-grid">
+        <div class="saturday-poster reveal"><img src="images/saturday/sep.jpg" alt="9월 토요특강 포스터 - '전문직' 전용 AI 활용법, 이상덕 세무사 & 이종헌 회계사" loading="lazy"></div>
+        <div class="saturday-poster reveal"><img src="images/saturday/oct.jpg" alt="10월 토요특강 포스터 - New Normal, Super Normal, 구은우 세무사" loading="lazy"></div>
+        <div class="saturday-poster reveal"><img src="images/saturday/nov.jpg" alt="11월 토요특강 포스터 - 금융빌딩 최종판, 김태우 세무사" loading="lazy"></div>
+        <div class="saturday-poster reveal"><img src="images/saturday/dec.jpg" alt="12월 토요특강 포스터 - 27년 법인컨설팅 공개, 백근창 세무사" loading="lazy"></div>
       </div>
       <div class="date-row">
         <div class="date-chip reveal"><b>9월</b>12일(토)</div>
@@ -612,17 +682,25 @@
   <section class="section alt" id="events">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="section-eyebrow">Moments</p>
-        <h2 class="section-title">각종 행사</h2>
-        <p class="section-lead">사업단과 함께한 순간들입니다. 사진은 순차적으로 업데이트될 예정입니다.</p>
+        <p class="section-eyebrow">All Year</p>
+        <h2 class="section-title">우리의 1년</h2>
+        <p class="section-lead">레거시 사업단은 한 해 동안 이만큼 자주, 이만큼 가깝게 함께합니다. 사진은 순차적으로 업데이트될 예정입니다.</p>
       </div>
-      <div class="event-grid">
-        <div class="event-card reveal"><div class="event-thumb"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"></div><div class="event-body"><div class="event-name">아난티</div></div></div>
-        <div class="event-card reveal"><div class="event-thumb"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"></div><div class="event-body"><div class="event-name">다낭</div></div></div>
-        <div class="event-card reveal"><div class="event-thumb"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"></div><div class="event-body"><div class="event-name">기흥</div></div></div>
-        <div class="event-card reveal"><div class="event-thumb"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"></div><div class="event-body"><div class="event-name">7월 회식</div></div></div>
-        <div class="event-card reveal"><div class="event-thumb"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"></div><div class="event-body"><div class="event-name">12월 송년회</div></div></div>
-        <div class="event-card reveal"><div class="event-thumb"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"></div><div class="event-body"><div class="event-name">골프행사</div></div></div>
+    </div>
+    <div class="event-marquee-wrap">
+      <div class="event-marquee">
+        <div class="event-item"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
+        <div class="event-item"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
+        <div class="event-item"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
+        <div class="event-item"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
+        <div class="event-item"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
+        <div class="event-item"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
+        <div class="event-item" aria-hidden="true"><img src="images/event-ananti.jpg" alt="" loading="lazy"><span class="event-item-label">아난티</span></div>
+        <div class="event-item" aria-hidden="true"><img src="images/event-danang.jpg" alt="" loading="lazy"><span class="event-item-label">다낭</span></div>
+        <div class="event-item" aria-hidden="true"><img src="images/event-giheung.jpg" alt="" loading="lazy"><span class="event-item-label">기흥</span></div>
+        <div class="event-item" aria-hidden="true"><img src="images/event-july.jpg" alt="" loading="lazy"><span class="event-item-label">7월 회식</span></div>
+        <div class="event-item" aria-hidden="true"><img src="images/event-yearend.jpg" alt="" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
+        <div class="event-item" aria-hidden="true"><img src="images/event-golf.jpg" alt="" loading="lazy"><span class="event-item-label">골프행사</span></div>
       </div>
     </div>
   </section>
@@ -633,6 +711,10 @@
         <p class="section-eyebrow">Member</p>
         <h2 class="section-title">MEMBER</h2>
         <p class="section-lead">After-VCC를 함께 만들어가는 레거시 사업단 파트너 전문가들입니다.</p>
+        <div id="memberPhotoToggle" class="mono-toggle">
+          <button type="button" class="mono-toggle-btn" data-mode="">컬러</button>
+          <button type="button" class="mono-toggle-btn" data-mode="mono">흑백</button>
+        </div>
       </div>
       <div class="sec_team_group reveal-scale"><img src="images/team/team-group.jpg" alt="레거시 사업단 멤버 단체사진" loading="lazy"></div>
       <div class="sec_team_grid" id="teamGrid">
