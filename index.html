@@ -837,6 +837,10 @@
         <div class="sec_team_card" data-idx="30" onclick="openMemberModal(30)"><img src="images/team/team-30.jpg" alt="이준일 세무사" loading="lazy"></div>
         <div class="sec_team_card" data-idx="31" onclick="openMemberModal(31)"><img src="images/team/team-31.jpg" alt="정성권 세무사" loading="lazy"></div>
         <div class="sec_team_card" data-idx="32" onclick="openMemberModal(32)"><img src="images/team/team-32.jpg" alt="윤희선 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="33" onclick="openMemberModal(33)"><img src="images/team/team-33.jpg" alt="김정관 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="34" onclick="openMemberModal(34)"><img src="images/team/team-34.jpg" alt="방민석 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="35" onclick="openMemberModal(35)"><img src="images/team/team-35.jpg" alt="송난희 세무사" loading="lazy"></div>
+        <div class="sec_team_card" data-idx="36" onclick="openMemberModal(36)"><img src="images/team/team-36.jpg" alt="안진렬 전문위원" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -1062,17 +1066,29 @@ const memberData = {
   29: {office:'신화 세무회계', name:'이재룡 세무사', linkUrl:'https://blog.naver.com/lands23', linkLabel:'블로그 바로가기'},
   30: {office:'정도세무회계', name:'이준일 세무사', linkUrl:'https://naver.me/FpwSmIGD', linkLabel:'블로그 바로가기'},
   31: {office:'세무회계 정성', name:'정성권 세무사', linkUrl:'https://blog.naver.com/heartax', linkLabel:'블로그 바로가기'},
-  32: {office:'MK세무회계', name:'윤희선 세무사', linkUrl:'https://instagram.com/_mktax_', linkLabel:'@_mktax_'}
+  32: {office:'MK세무회계', name:'윤희선 세무사', linkUrl:'https://instagram.com/_mktax_', linkLabel:'@_mktax_'},
+  33: {office:'하나세무회계', name:'김정관 세무사', linkUrl:'https://blog.naver.com/hanatax__', linkLabel:'블로그 바로가기'},
+  34: {office:'세온 세무회계', name:'방민석 세무사', linkUrl:'https://blog.naver.com/seontax0510', linkLabel:'블로그 바로가기'},
+  35: {office:'', name:'송난희 세무사', linkUrl:'', linkLabel:''},
+  36: {office:'', name:'안진렬 전문위원', linkUrl:'', linkLabel:''}
 };
 function openMemberModal(idx){
   var d = memberData[idx];
   if(!d) return;
   var cardImg = document.querySelector('#teamGrid .sec_team_card[data-idx="'+idx+'"] img');
   document.getElementById('modalImg').src = (cardImg && cardImg.getAttribute('src')) || '';
-  document.getElementById('modalOffice').textContent = d.office;
+  var officeEl = document.getElementById('modalOffice');
+  officeEl.textContent = d.office;
+  officeEl.style.display = d.office ? '' : 'none';
   document.getElementById('modalName').textContent = d.name;
-  document.getElementById('modalLinkText').textContent = d.linkLabel;
-  document.getElementById('modalLink').href = d.linkUrl;
+  var linkEl = document.getElementById('modalLink');
+  if(d.linkUrl){
+    document.getElementById('modalLinkText').textContent = d.linkLabel;
+    linkEl.href = d.linkUrl;
+    linkEl.style.display = '';
+  } else {
+    linkEl.style.display = 'none';
+  }
   document.getElementById('memberModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
