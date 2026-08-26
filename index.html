@@ -212,6 +212,9 @@
     background:var(--bg-surface);border-bottom:1px solid var(--line);
   }
   .lms-photo img{width:100%;height:auto;display:block;}
+  .lms-photo .lms-photo-poster{display:none;}
+  html[data-lms-photo="poster"] .lms-photo .lms-photo-id{display:none;}
+  html[data-lms-photo="poster"] .lms-photo .lms-photo-poster{display:block;}
   .lms-body{padding:22px 24px 26px;}
   .lms-month{
     font-family:var(--font-en);color:var(--accent);font-weight:600;
@@ -618,10 +621,17 @@
           LMS(Legacy Monthly Seminar)는 사업단이 매월 진행하는 정규 세미나 시스템입니다.<br>
           10월, 11월, 12월 세 차례에 걸쳐 진행될 예정이며 회차마다 다른 강사진이 함께합니다.
         </p>
+        <div id="lmsPhotoToggle" class="mono-toggle">
+          <button type="button" class="mono-toggle-btn" data-mode="">증명사진</button>
+          <button type="button" class="mono-toggle-btn" data-mode="poster">포스터</button>
+        </div>
       </div>
       <div class="lms-grid">
         <div class="lms-card reveal">
-          <div class="lms-photo"><img src="images/choi-eunju.jpg" alt="최은주 전문위원" loading="lazy"></div>
+          <div class="lms-photo">
+            <img class="lms-photo-id" src="images/choi-eunju.jpg" alt="최은주 전문위원" loading="lazy">
+            <img class="lms-photo-poster" src="images/lms-poster/choi-eunju-poster.jpg" alt="최은주 전문위원 포스터" loading="lazy">
+          </div>
           <div class="lms-body">
             <div class="lms-month">OCT · 10월</div>
             <div class="lms-speaker">최은주 전문위원</div>
@@ -652,7 +662,10 @@
           </div>
         </div>
         <div class="lms-card reveal">
-          <div class="lms-photo"><img src="images/jung-sungwoo.jpg" alt="정성우 세무사" loading="lazy"></div>
+          <div class="lms-photo">
+            <img class="lms-photo-id" src="images/jung-sungwoo.jpg" alt="정성우 세무사" loading="lazy">
+            <img class="lms-photo-poster" src="images/lms-poster/jung-sungwoo-poster.jpg" alt="정성우 세무사 포스터" loading="lazy">
+          </div>
           <div class="lms-body">
             <div class="lms-month">NOV · 11월</div>
             <div class="lms-speaker">정성우 세무사</div>
@@ -684,7 +697,10 @@
           </div>
         </div>
         <div class="lms-card reveal">
-          <div class="lms-photo"><img src="images/kim-hyungseok.jpg" alt="김형석 세무사" loading="lazy"></div>
+          <div class="lms-photo">
+            <img class="lms-photo-id" src="images/kim-hyungseok.jpg" alt="김형석 세무사" loading="lazy">
+            <img class="lms-photo-poster" src="images/lms-poster/kim-hyungseok-poster.jpg" alt="김형석 세무사 포스터" loading="lazy">
+          </div>
           <div class="lms-body">
             <div class="lms-month">DEC · 12월</div>
             <div class="lms-speaker">김형석 세무사</div>
@@ -1072,6 +1088,22 @@ function closeMemberModal(e){
   function setMode(val){
     if(val){ document.documentElement.setAttribute('data-member-photo', val); }
     else { document.documentElement.removeAttribute('data-member-photo'); }
+    btns.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-mode') === val);
+    });
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ setMode(b.getAttribute('data-mode')); });
+  });
+  setMode('');
+})();
+(function(){
+  var toggle = document.getElementById('lmsPhotoToggle');
+  if(!toggle) return;
+  var btns = toggle.querySelectorAll('.mono-toggle-btn');
+  function setMode(val){
+    if(val){ document.documentElement.setAttribute('data-lms-photo', val); }
+    else { document.documentElement.removeAttribute('data-lms-photo'); }
     btns.forEach(function(b){
       b.classList.toggle('active', b.getAttribute('data-mode') === val);
     });
