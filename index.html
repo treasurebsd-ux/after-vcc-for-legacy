@@ -221,10 +221,27 @@
   .lms-topic{
     margin-top:8px;font-size:0.88rem;font-weight:600;color:var(--text-secondary);
   }
-  .lms-bio{
-    margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
-    min-height:54px;color:var(--text-tertiary);font-size:0.82rem;line-height:1.7;
+  .lms-bio{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);}
+  .lms-bio-group{margin-bottom:16px;}
+  .lms-bio-group:last-child{margin-bottom:0;}
+  .lms-bio-label{
+    display:flex;align-items:center;gap:7px;
+    font-size:0.76rem;font-weight:700;color:var(--accent);
+    letter-spacing:0.04em;margin:0 0 8px;
   }
+  .lms-bio-tag{
+    font-size:0.66rem;font-weight:700;padding:2px 7px;border-radius:3px;
+    background:var(--accent);color:#150F26;letter-spacing:0;
+  }
+  html[data-theme="new"] .lms-bio-tag{color:#FFF6F0;}
+  .lms-bio-list{margin:0;padding:0;list-style:none;}
+  .lms-bio-list li{
+    position:relative;padding-left:13px;margin-bottom:6px;
+    color:var(--text-secondary);font-size:0.82rem;line-height:1.6;
+  }
+  .lms-bio-list li::before{content:"·";position:absolute;left:2px;color:var(--text-tertiary);}
+  .lms-bio-list li:last-child{margin-bottom:0;}
+  .lms-bio-list li b{font-weight:700;color:var(--accent);margin-right:5px;font-size:0.78rem;}
 
   /* saturday */
   .saturday-poster-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr);}
@@ -517,22 +534,6 @@
   });
   setTheme('');
 })();
-(function(){
-  var toggle = document.getElementById('memberPhotoToggle');
-  if(!toggle) return;
-  var btns = toggle.querySelectorAll('.mono-toggle-btn');
-  function setMode(val){
-    if(val){ document.documentElement.setAttribute('data-member-photo', val); }
-    else { document.documentElement.removeAttribute('data-member-photo'); }
-    btns.forEach(function(b){
-      b.classList.toggle('active', b.getAttribute('data-mode') === val);
-    });
-  }
-  btns.forEach(function(b){
-    b.addEventListener('click', function(){ setMode(b.getAttribute('data-mode')); });
-  });
-  setMode('');
-})();
 </script>
 </head>
 <body>
@@ -625,7 +626,29 @@
             <div class="lms-month">OCT · 10월</div>
             <div class="lms-speaker">최은주 전문위원</div>
             <div class="lms-topic">주제 · 고액자산가 전담 상담</div>
-            <div class="lms-bio">※ 이력은 추후 업데이트됩니다.</div>
+            <div class="lms-bio">
+              <div class="lms-bio-group">
+                <p class="lms-bio-label">경력</p>
+                <ul class="lms-bio-list">
+                  <li><b>現</b>Rich Divine Quantum사업단 지점장, 전문위원</li>
+                  <li><b>前</b>MetLife NobleRich Center 재무 전문위원 (VIP상담 15년)</li>
+                  <li><b>前</b>MetLife 법인컨설팅 전문강사</li>
+                  <li>CFP(국제공인재무설계사), 증권투자상담사, 펀드투자상담사</li>
+                  <li>FP협회 선정 올해의 FP(2017)</li>
+                  <li>절세모음Zip 개인편·법인편 출간(2023.4)</li>
+                </ul>
+              </div>
+              <div class="lms-bio-group">
+                <p class="lms-bio-label">전문분야</p>
+                <ul class="lms-bio-list">
+                  <li>상속증여 및 가업승계 컨설팅</li>
+                  <li>임원소득, 지분설계 컨설팅</li>
+                  <li>가지급금, 잉여금관리 솔루션</li>
+                  <li>특정법인(가족법인) 컨설팅</li>
+                  <li>개인사업자 법인전환 컨설팅</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="lms-card reveal">
@@ -634,7 +657,30 @@
             <div class="lms-month">NOV · 11월</div>
             <div class="lms-speaker">정성우 세무사</div>
             <div class="lms-topic">주제 · 클로드 활용</div>
-            <div class="lms-bio">※ 이력은 추후 업데이트됩니다.</div>
+            <div class="lms-bio">
+              <div class="lms-bio-group">
+                <p class="lms-bio-label">경력 <span class="lms-bio-tag">現</span></p>
+                <ul class="lms-bio-list">
+                  <li>세무회계범진 대표 세무사</li>
+                  <li>한국세무사회 홍보상담/사회공헌 위원</li>
+                  <li>㈜풀무원 본사교육 강사</li>
+                  <li>수원시청, 광명시청, 안양시청, 평택시청 공무원 교육 초청 강사</li>
+                  <li>대구동구청 창업세법 초청 강사</li>
+                  <li>윈지코리아컨설팅 교육 자문위원</li>
+                  <li>법무법인 굿플랜 세무 자문위원</li>
+                  <li>AIMHIGH 강사</li>
+                </ul>
+              </div>
+              <div class="lms-bio-group">
+                <p class="lms-bio-label">전문분야</p>
+                <ul class="lms-bio-list">
+                  <li>법인컨설팅 전문 (법인을 활용한 상속, 증여, 이익잉여금 EXIT)</li>
+                  <li>패밀리 오피스, 병의원 MSO</li>
+                  <li>VIP 상속/증여 전문</li>
+                  <li>연예인, 스포츠 선수, 유튜버 전문</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="lms-card reveal">
@@ -643,7 +689,32 @@
             <div class="lms-month">DEC · 12월</div>
             <div class="lms-speaker">김형석 세무사</div>
             <div class="lms-topic">주제 · 농업회사법인</div>
-            <div class="lms-bio">※ 이력은 추후 업데이트됩니다.</div>
+            <div class="lms-bio">
+              <div class="lms-bio-group">
+                <p class="lms-bio-label">경력 <span class="lms-bio-tag">現</span></p>
+                <ul class="lms-bio-list">
+                  <li>더프라임세무회계사무소 대표</li>
+                  <li>성균관대학교 경영대학 겸임교수</li>
+                  <li>SK증권 가업승계 자문</li>
+                  <li>영진에셋 상속 및 증여 자문</li>
+                  <li>원빌딩중개법인 상속 및 증여 자문</li>
+                  <li>임오그룹 경영권 및 자산승계 자문</li>
+                </ul>
+              </div>
+              <div class="lms-bio-group">
+                <p class="lms-bio-label">전문분야 <span class="lms-bio-tag">前</span></p>
+                <ul class="lms-bio-list">
+                  <li>제3회 세무사전문분야포럼 상증세 분야 좌장</li>
+                  <li>제2회 세무사전문분야포럼 상증세 분야 우수상 수상</li>
+                  <li>제2회 세무사전문분야포럼 전체 분야 최우수상 수상</li>
+                  <li>남대문 세무서 국세심사위원회 위원</li>
+                  <li>인천지방국세청 외부교수 (자본거래 강의)</li>
+                  <li>웅지세무대학 겸임교수</li>
+                  <li>웅지·아이파·우리경영아카데미 세법학 강사</li>
+                  <li>제39회 세무사자격시험 합격</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -994,6 +1065,22 @@ function closeMemberModal(e){
   document.getElementById('memberModal').classList.remove('open');
   document.body.style.overflow = '';
 }
+(function(){
+  var toggle = document.getElementById('memberPhotoToggle');
+  if(!toggle) return;
+  var btns = toggle.querySelectorAll('.mono-toggle-btn');
+  function setMode(val){
+    if(val){ document.documentElement.setAttribute('data-member-photo', val); }
+    else { document.documentElement.removeAttribute('data-member-photo'); }
+    btns.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-mode') === val);
+    });
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){ setMode(b.getAttribute('data-mode')); });
+  });
+  setMode('');
+})();
 </script>
 
 </body>
