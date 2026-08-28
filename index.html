@@ -199,6 +199,14 @@
   .t-title{font-weight:700;font-size:1.02rem;margin-bottom:4px;}
   .t-speaker{color:var(--text-secondary);font-size:0.9rem;}
   .t-item.break .t-title{color:var(--text-tertiary);font-weight:500;}
+  .t-speakers{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:2px;}
+  .t-speaker-row{display:flex;align-items:center;gap:11px;}
+  .t-speaker-row .t-speaker{font-size:0.92rem;}
+  .t-avatar{
+    width:52px;height:52px;border-radius:50%;overflow:hidden;flex:none;
+    border:1px solid var(--line);background:var(--bg-surface-2);
+  }
+  .t-avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;}
 
   /* cards grid (LMS) */
   .lms-grid{display:grid;gap:20px;grid-template-columns:repeat(3,1fr);margin-top:8px;}
@@ -486,6 +494,7 @@
     .lms-grid{grid-template-columns:1fr 1fr;}
     .timeline::before{left:84px;}
     .t-item{grid-template-columns:84px 1fr;gap:16px;}
+    .t-avatar{width:44px;height:44px;}
   }
   @media (max-width:520px){
     .lms-grid{grid-template-columns:1fr;}
@@ -583,11 +592,21 @@
       <ul class="timeline">
         <li class="t-item reveal">
           <div class="t-time">10:00–10:10</div>
-          <div><div class="t-title">오프닝</div><div class="t-speaker">박병곤</div></div>
+          <div>
+            <div class="t-title">오프닝</div>
+            <div class="t-speakers">
+              <div class="t-speaker-row"><div class="t-avatar"><img src="images/team/team-01.jpg" alt="박병곤 회계사" loading="lazy"></div><div class="t-speaker">박병곤 회계사</div></div>
+            </div>
+          </div>
         </li>
         <li class="t-item reveal">
           <div class="t-time">10:10–11:10</div>
-          <div><div class="t-title">금융빌딩 / 계약사례</div><div class="t-speaker">김희연</div></div>
+          <div>
+            <div class="t-title">금융빌딩 / 계약사례</div>
+            <div class="t-speakers">
+              <div class="t-speaker-row"><div class="t-avatar"><img src="images/team/team-10.jpg" alt="김희연 회계사" loading="lazy"></div><div class="t-speaker">김희연 회계사</div></div>
+            </div>
+          </div>
         </li>
         <li class="t-item break reveal">
           <div class="t-time">11:10–11:25</div>
@@ -595,17 +614,23 @@
         </li>
         <li class="t-item reveal">
           <div class="t-time">11:25–11:45</div>
-          <div><div class="t-title">계약사례</div><div class="t-speaker">오성우, 김대민</div></div>
+          <div>
+            <div class="t-title">계약사례</div>
+            <div class="t-speakers">
+              <div class="t-speaker-row"><div class="t-avatar"><img src="images/team/team-18.jpg" alt="오성우 세무사" loading="lazy"></div><div class="t-speaker">오성우 세무사</div></div>
+              <div class="t-speaker-row"><div class="t-avatar"><img src="images/team/team-26.jpg" alt="김대민 세무사" loading="lazy"></div><div class="t-speaker">김대민 세무사</div></div>
+            </div>
+          </div>
         </li>
         <li class="t-item reveal">
           <div class="t-time">11:45–12:45</div>
-          <div><div class="t-title">컨설팅 강의</div><div class="t-speaker">박병곤</div></div>
+          <div><div class="t-title">컨설팅 강의</div><div class="t-speaker">박병곤 회계사</div></div>
         </li>
         <li class="t-item reveal">
           <div class="t-time">12:45–13:00</div>
           <div>
             <div class="t-title">클로징</div>
-            <div class="t-speaker">박병곤 · 10월 최은주 / 11월 정성우 / 12월 김형석 강의 소개</div>
+            <div class="t-speaker">박병곤 회계사 · 10월 최은주 / 11월 정성우 / 12월 김형석 강의 소개</div>
           </div>
         </li>
       </ul>
