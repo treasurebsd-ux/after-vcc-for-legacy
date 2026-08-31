@@ -37,26 +37,17 @@
     --bg-void:#0A0912;
     --bg-surface:#131120;
     --bg-surface-2:#1C1830;
-    --accent:#4DA8FF;
-    --accent-deep:#2F84E0;
-    --accent-pale:#DCEEFF;
+    --accent:#3C96EB;
+    --accent-deep:#1E74D2;
+    --accent-pale:#D3E9FF;
     --text-primary:#F4F2FA;
     --text-secondary:#ABA4C3;
     --text-tertiary:#7C7594;
-    --line:rgba(77,168,255,0.18);
-    --line-strong:rgba(77,168,255,0.36);
+    --line:rgba(60,150,235,0.18);
+    --line-strong:rgba(60,150,235,0.36);
     --font-en:'Sora','Noto Sans KR',sans-serif;
     --font-body:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;
     --maxw:1080px;
-  }
-
-  /* alternate theme: same dark mode, brick-red accent (warm, faintly luminous, not neon) */
-  html[data-theme="new"]{
-    --accent:#E2593C;
-    --accent-deep:#B5432C;
-    --accent-pale:#FFDCC6;
-    --line:rgba(226,89,60,0.18);
-    --line-strong:rgba(226,89,60,0.34);
   }
 
   *,*::before,*::after{box-sizing:border-box;}
@@ -73,7 +64,6 @@
   p{margin:0;}
   a{color:inherit;}
   ::selection{background:var(--accent);color:#150F26;}
-  html[data-theme="new"] ::selection{color:#FFF6F0;}
   :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 
   /* reveal-on-scroll */
@@ -101,9 +91,6 @@
     background:rgba(10,9,18,0.96);
     box-shadow:0 10px 28px rgba(0,0,0,0.35);
   }
-  html[data-theme="new"] .site-nav{border-top:3px solid var(--accent);}
-  html[data-theme="new"] .brand em{text-shadow:0 0 14px rgba(226,89,60,0.55);}
-  html[data-theme="new"] .eyebrow{text-shadow:0 0 16px rgba(226,89,60,0.4);}
   .site-nav .wrap{
     display:flex;align-items:center;justify-content:space-between;
     gap:20px;height:64px;
@@ -140,7 +127,6 @@
     background:radial-gradient(closest-side, rgba(195,175,250,0.24), transparent 70%);
     pointer-events:none;
   }
-  html[data-theme="new"] .hero::before{background:radial-gradient(closest-side, rgba(226,89,60,0.30), transparent 70%);}
   .hero-inner{position:relative;}
   .eyebrow{
     font-family:var(--font-en);font-size:0.78rem;font-weight:600;
@@ -284,8 +270,6 @@
     transition:background .2s,transform .2s;
   }
   .btn:hover{background:var(--accent-pale);}
-  html[data-theme="new"] .btn{color:#FFF6F0;box-shadow:0 0 26px rgba(226,89,60,0.4);}
-  html[data-theme="new"] .btn:hover{color:var(--accent-deep);}
   .callout{
     margin-top:24px;padding:18px 20px;border:1px solid var(--line-strong);
     border-left:3px solid var(--accent);background:var(--bg-surface-2);
@@ -368,7 +352,6 @@
     background:transparent;color:var(--text-secondary);transition:background .2s,color .2s;
   }
   .mono-toggle-btn.active{background:var(--accent);color:#150F26;}
-  html[data-theme="new"] .mono-toggle-btn.active{color:#FFF6F0;}
 
   #memberModal{
     display:none;position:fixed;inset:0;z-index:9999;
@@ -435,7 +418,7 @@
   .section.alt .field select{background:var(--bg-surface);}
   .field input::placeholder{color:var(--text-tertiary);}
   .field select{appearance:none;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%234DA8FF' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' stroke='%233C96EB' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
     background-repeat:no-repeat;background-position:right 14px center;
     padding-right:38px;
   }
@@ -471,30 +454,6 @@
   .form-status.show{display:block;}
   .form-status.ok{border-color:var(--accent);background:rgba(195,175,250,0.08);}
   .form-status.err{border-color:#E39B9B;background:rgba(227,155,155,0.08);color:#E7B8B8;}
-  html[data-theme="new"] .radio-pill input:checked + span,
-  html[data-theme="new"] .submit-btn{color:#FFF6F0;}
-  html[data-theme="new"] .submit-btn:hover{color:var(--accent-deep);}
-  html[data-theme="new"] .form-status.ok{background:rgba(226,89,60,0.1);}
-
-  /* version toggle */
-  .theme-toggle{
-    position:fixed;left:20px;bottom:20px;z-index:10000;
-    display:flex;gap:2px;padding:4px;border-radius:999px;
-    background:rgba(10,9,18,0.9);border:1px solid rgba(255,255,255,0.14);
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);backdrop-filter:blur(8px);
-  }
-  .theme-toggle-btn{
-    appearance:none;border:none;cursor:pointer;padding:9px 16px;border-radius:999px;
-    font-family:var(--font-body);font-size:0.78rem;font-weight:700;
-    background:transparent;color:rgba(244,242,250,0.55);transition:background .2s,color .2s;
-  }
-
-  .theme-toggle-btn.active{background:var(--accent);color:#150F26;}
-  html[data-theme="new"] .theme-toggle-btn.active{color:#FFF6F0;}
-  @media (max-width:640px){
-    .theme-toggle{left:12px;bottom:12px;}
-    .theme-toggle-btn{padding:8px 12px;font-size:0.72rem;}
-  }
 
   footer{
     border-top:1px solid var(--line);padding:44px 0;
@@ -543,29 +502,6 @@
   .hero-inner .reveal:nth-child(3){transition-delay:.24s;}
 </style>
 <noscript><style>.reveal,.reveal-scale{opacity:1 !important;transform:none !important;}</style></noscript>
-
-<div id="themeToggle" class="theme-toggle">
-  <button type="button" class="theme-toggle-btn" data-theme-value="">지금 버전</button>
-  <button type="button" class="theme-toggle-btn" data-theme-value="new">변경 버전</button>
-</div>
-<script>
-(function(){
-  var toggle = document.getElementById('themeToggle');
-  if(!toggle) return;
-  var btns = toggle.querySelectorAll('.theme-toggle-btn');
-  function setTheme(val){
-    if(val){ document.documentElement.setAttribute('data-theme', val); }
-    else { document.documentElement.removeAttribute('data-theme'); }
-    btns.forEach(function(b){
-      b.classList.toggle('active', b.getAttribute('data-theme-value') === val);
-    });
-  }
-  btns.forEach(function(b){
-    b.addEventListener('click', function(){ setTheme(b.getAttribute('data-theme-value')); });
-  });
-  setTheme('');
-})();
-</script>
 </head>
 <body>
 
