@@ -76,6 +76,16 @@
     .reveal{opacity:1;transform:none;transition:none;}
   }
 
+  /* pop-in: photo pops forward toward the viewer, one at a time */
+  .pop-in{
+    opacity:0;transform:scale(0.72) translateY(18px);
+    transition:opacity .7s cubic-bezier(.2,.9,.28,1.05), transform .7s cubic-bezier(.2,.9,.28,1.05);
+  }
+  .pop-in.in-view{opacity:1;transform:scale(1) translateY(0);}
+  @media (prefers-reduced-motion:reduce){
+    .pop-in{opacity:1;transform:none;transition:none;}
+  }
+
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
 
   /* nav */
@@ -124,7 +134,7 @@
   }
   .hero::before{
     content:"";position:absolute;inset:-20% -10% auto -10%;height:640px;
-    background:radial-gradient(closest-side, rgba(195,175,250,0.24), transparent 70%);
+    background:radial-gradient(closest-side, rgba(60,150,235,0.24), transparent 70%);
     pointer-events:none;
   }
   .hero-inner{position:relative;}
@@ -278,25 +288,19 @@
   .section.alt .callout{background:var(--bg-void);}
   .callout b{color:var(--text-primary);}
 
-  /* events — right-to-left marquee, uncropped originals */
-  .event-marquee-wrap{
-    width:100%;overflow:hidden;margin-top:36px;
-    -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-    mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  /* events — photos pop forward one by one as you scroll, uncropped originals */
+  .event-gallery-wrap{
+    width:100%;overflow-x:auto;margin-top:36px;padding-bottom:8px;
+    scroll-snap-type:x proximity;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
   }
-  .event-marquee{
-    display:flex;align-items:flex-end;gap:22px;width:max-content;
-    animation:eventMarquee 52s linear infinite;
-  }
-  .event-marquee:hover{animation-play-state:paused;}
-  @keyframes eventMarquee{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
+  .event-gallery{display:flex;align-items:flex-end;gap:22px;width:max-content;padding:0 2px;}
   .event-item{
     position:relative;flex:0 0 auto;height:280px;
     border-radius:2px;overflow:hidden;border:1px solid var(--line);
-    background:var(--bg-surface-2);
+    background:var(--bg-surface-2);scroll-snap-align:start;
+    transform-origin:50% 65%;
   }
   .event-item img{height:100%;width:auto;display:block;}
   .event-item-label{
@@ -305,10 +309,12 @@
     background:linear-gradient(180deg,transparent,rgba(0,0,0,0.72) 75%);
   }
   @media (max-width:720px){.event-item{height:190px;}}
-  @media (prefers-reduced-motion:reduce){
-    .event-marquee{animation:none;}
-    .event-marquee-wrap{overflow-x:auto;}
-  }
+  .event-gallery .pop-in:nth-child(1){transition-delay:0s;}
+  .event-gallery .pop-in:nth-child(2){transition-delay:.1s;}
+  .event-gallery .pop-in:nth-child(3){transition-delay:.2s;}
+  .event-gallery .pop-in:nth-child(4){transition-delay:.3s;}
+  .event-gallery .pop-in:nth-child(5){transition-delay:.4s;}
+  .event-gallery .pop-in:nth-child(6){transition-delay:.5s;}
 
   /* member */
   .reveal-scale{opacity:0;transform:scale(.94);transition:opacity 1s ease, transform 1s ease;}
@@ -333,25 +339,11 @@
     .sec_team_grid{grid-template-columns:repeat(4,1fr);gap:8px;}
   }
 
-  /* member photo color/mono toggle */
+  /* member photo — mono (grayscale) only */
   .sec_team_group img,.sec_team_card img,#memberModal .modal_img{
-    transition:filter .35s ease, transform .4s ease;
-  }
-  html[data-member-photo="mono"] .sec_team_group img,
-  html[data-member-photo="mono"] .sec_team_card img,
-  html[data-member-photo="mono"] #memberModal .modal_img{
+    transition:transform .4s ease;
     filter:grayscale(100%);
   }
-  .mono-toggle{
-    display:inline-flex;gap:2px;margin-top:20px;padding:4px;border-radius:999px;
-    background:var(--bg-surface-2);border:1px solid var(--line);
-  }
-  .mono-toggle-btn{
-    appearance:none;border:none;cursor:pointer;padding:8px 18px;border-radius:999px;
-    font-family:var(--font-body);font-size:0.82rem;font-weight:700;
-    background:transparent;color:var(--text-secondary);transition:background .2s,color .2s;
-  }
-  .mono-toggle-btn.active{background:var(--accent);color:#150F26;}
 
   #memberModal{
     display:none;position:fixed;inset:0;z-index:9999;
@@ -452,7 +444,7 @@
     border:1px solid var(--line-strong);
   }
   .form-status.show{display:block;}
-  .form-status.ok{border-color:var(--accent);background:rgba(195,175,250,0.08);}
+  .form-status.ok{border-color:var(--accent);background:rgba(60,150,235,0.08);}
   .form-status.err{border-color:#E39B9B;background:rgba(227,155,155,0.08);color:#E7B8B8;}
 
   footer{
@@ -501,7 +493,7 @@
   .hero-inner .reveal:nth-child(2){transition-delay:.12s;}
   .hero-inner .reveal:nth-child(3){transition-delay:.24s;}
 </style>
-<noscript><style>.reveal,.reveal-scale{opacity:1 !important;transform:none !important;}</style></noscript>
+<noscript><style>.reveal,.reveal-scale,.pop-in{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body>
 
@@ -770,23 +762,17 @@
       <div class="section-head reveal">
         <p class="section-eyebrow">All Year</p>
         <h2 class="section-title">우리의 1년</h2>
-        <p class="section-lead">레거시 사업단은 한 해 동안 이만큼 자주, 이만큼 가깝게 함께합니다.</p>
+        <p class="section-lead">혼자 일하지만, 혼자는 아닙니다.</p>
       </div>
     </div>
-    <div class="event-marquee-wrap">
-      <div class="event-marquee">
-        <div class="event-item"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
-        <div class="event-item"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
-        <div class="event-item"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
-        <div class="event-item"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
-        <div class="event-item"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
-        <div class="event-item"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
-        <div class="event-item" aria-hidden="true"><img src="images/event-ananti.jpg" alt="" loading="lazy"><span class="event-item-label">아난티</span></div>
-        <div class="event-item" aria-hidden="true"><img src="images/event-danang.jpg" alt="" loading="lazy"><span class="event-item-label">다낭</span></div>
-        <div class="event-item" aria-hidden="true"><img src="images/event-giheung.jpg" alt="" loading="lazy"><span class="event-item-label">기흥</span></div>
-        <div class="event-item" aria-hidden="true"><img src="images/event-july.jpg" alt="" loading="lazy"><span class="event-item-label">7월 회식</span></div>
-        <div class="event-item" aria-hidden="true"><img src="images/event-yearend.jpg" alt="" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
-        <div class="event-item" aria-hidden="true"><img src="images/event-golf.jpg" alt="" loading="lazy"><span class="event-item-label">골프행사</span></div>
+    <div class="event-gallery-wrap">
+      <div class="event-gallery">
+        <div class="event-item pop-in"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
+        <div class="event-item pop-in"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
+        <div class="event-item pop-in"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
+        <div class="event-item pop-in"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
+        <div class="event-item pop-in"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
+        <div class="event-item pop-in"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
       </div>
     </div>
   </section>
@@ -797,10 +783,6 @@
         <p class="section-eyebrow">Member</p>
         <h2 class="section-title">MEMBER</h2>
         <p class="section-lead">After-VCC를 함께 만들어가는 레거시 사업단 파트너 전문가들입니다.</p>
-        <div id="memberPhotoToggle" class="mono-toggle">
-          <button type="button" class="mono-toggle-btn" data-mode="">컬러</button>
-          <button type="button" class="mono-toggle-btn" data-mode="mono">흑백</button>
-        </div>
       </div>
       <div class="sec_team_group reveal-scale"><img src="images/team/team-group.jpg" alt="레거시 사업단 멤버 단체사진" loading="lazy"></div>
       <div class="sec_team_grid" id="teamGrid">
@@ -925,7 +907,7 @@
 (function(){
   // scroll-reveal + sticky-nav shadow
   var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+  var revealEls = document.querySelectorAll('.reveal, .reveal-scale, .pop-in');
   if(!reduceMotion && 'IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -1100,22 +1082,6 @@ function closeMemberModal(e){
   document.getElementById('memberModal').classList.remove('open');
   document.body.style.overflow = '';
 }
-(function(){
-  var toggle = document.getElementById('memberPhotoToggle');
-  if(!toggle) return;
-  var btns = toggle.querySelectorAll('.mono-toggle-btn');
-  function setMode(val){
-    if(val){ document.documentElement.setAttribute('data-member-photo', val); }
-    else { document.documentElement.removeAttribute('data-member-photo'); }
-    btns.forEach(function(b){
-      b.classList.toggle('active', b.getAttribute('data-mode') === val);
-    });
-  }
-  btns.forEach(function(b){
-    b.addEventListener('click', function(){ setMode(b.getAttribute('data-mode')); });
-  });
-  setMode('');
-})();
 </script>
 
 </body>
