@@ -997,21 +997,22 @@
       return;
     }
 
-    var payload = new FormData();
-    payload.append('성함', entry.name);
-    payload.append('자격사', entry.license);
-    payload.append('연락처', entry.phone);
-    payload.append('참석 일정', entry.attendance);
-    payload.append('제출시각', new Date().toLocaleString('ko-KR'));
-
     if(submitBtn){ submitBtn.disabled = true; }
     showStatus('ok', '제출 중입니다...');
 
     fetch(GAS_ENDPOINT, {
       method: 'POST',
-      mode: 'no-cors',
-      body: payload
-    }).then(function(){
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        name: entry.name,
+        license: entry.license,
+        phone: entry.phone,
+        attendance: entry.attendance
+      })
+    }).then(function(res){
+      return res.json();
+    }).then(function(data){
+      if(!data || !data.success){ throw new Error(data && data.error ? data.error : '제출 처리에 실패했습니다.'); }
       showStatus('ok', '<b>제출이 완료되었습니다.</b> 참석 의사를 알려주셔서 감사합니다.');
       form.reset();
       otherWrap.classList.remove('show');
