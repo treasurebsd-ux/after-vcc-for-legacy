@@ -76,16 +76,6 @@
     .reveal{opacity:1;transform:none;transition:none;}
   }
 
-  /* pop-in: photo pops forward toward the viewer, one at a time */
-  .pop-in{
-    opacity:0;transform:scale(0.72) translateY(18px);
-    transition:opacity .7s cubic-bezier(.2,.9,.28,1.05), transform .7s cubic-bezier(.2,.9,.28,1.05);
-  }
-  .pop-in.in-view{opacity:1;transform:scale(1) translateY(0);}
-  @media (prefers-reduced-motion:reduce){
-    .pop-in{opacity:1;transform:none;transition:none;}
-  }
-
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
 
   /* nav */
@@ -288,33 +278,49 @@
   .section.alt .callout{background:var(--bg-void);}
   .callout b{color:var(--text-primary);}
 
-  /* events — photos pop forward one by one as you scroll, uncropped originals */
-  .event-gallery-wrap{
-    width:100%;overflow-x:auto;margin-top:36px;padding-bottom:8px;
-    scroll-snap-type:x proximity;
-    -webkit-mask-image:linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
-    mask-image:linear-gradient(90deg, transparent, #000 2%, #000 98%, transparent);
+  /* events — ambient photo field: images continuously float forward, one after another, on loop */
+  .event-field{
+    position:relative;min-height:520px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
   }
-  .event-gallery{display:flex;align-items:flex-end;gap:22px;width:max-content;padding:0 2px;}
-  .event-item{
-    position:relative;flex:0 0 auto;height:280px;
+  .event-field .wrap{position:relative;z-index:5;pointer-events:none;}
+  .event-particle{
+    position:absolute;z-index:1;
     border-radius:2px;overflow:hidden;border:1px solid var(--line);
-    background:var(--bg-surface-2);scroll-snap-align:start;
-    transform-origin:50% 65%;
+    background:var(--bg-surface-2);
+    opacity:0;transform:scale(.55) translateY(16px);
+    animation-name:eventFloat;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
   }
-  .event-item img{height:100%;width:auto;display:block;}
+  .event-particle img{width:100%;height:100%;object-fit:cover;display:block;}
   .event-item-label{
-    position:absolute;left:0;right:0;bottom:0;padding:10px 14px;
-    font-size:0.82rem;font-weight:700;color:#fff;
+    position:absolute;left:0;right:0;bottom:0;padding:8px 11px;
+    font-size:0.72rem;font-weight:700;color:#fff;
     background:linear-gradient(180deg,transparent,rgba(0,0,0,0.72) 75%);
   }
-  @media (max-width:720px){.event-item{height:190px;}}
-  .event-gallery .pop-in:nth-child(1){transition-delay:0s;}
-  .event-gallery .pop-in:nth-child(2){transition-delay:.1s;}
-  .event-gallery .pop-in:nth-child(3){transition-delay:.2s;}
-  .event-gallery .pop-in:nth-child(4){transition-delay:.3s;}
-  .event-gallery .pop-in:nth-child(5){transition-delay:.4s;}
-  .event-gallery .pop-in:nth-child(6){transition-delay:.5s;}
+  @keyframes eventFloat{
+    0%{opacity:0;transform:scale(.55) translateY(16px);}
+    14%{opacity:1;transform:scale(1) translateY(0);}
+    72%{opacity:1;transform:scale(1) translateY(0);}
+    100%{opacity:0;transform:scale(.7) translateY(-12px);}
+  }
+  .p1{top:6%; left:7%;  width:120px;height:150px;animation-duration:7.5s;animation-delay:-1s;}
+  .p2{top:9%; left:47%; width:92px; height:120px;animation-duration:8.5s;animation-delay:-3.2s;}
+  .p3{top:12%;left:79%; width:150px;height:110px;animation-duration:6.8s;animation-delay:-5s;}
+  .p4{top:60%;left:5%;  width:130px;height:170px;animation-duration:9s;  animation-delay:-0.5s;}
+  .p5{top:66%;left:43%; width:100px;height:80px; animation-duration:7.2s;animation-delay:-2.1s;}
+  .p6{top:55%;left:77%; width:140px;height:190px;animation-duration:8s;  animation-delay:-6s;}
+  @media (max-width:760px){
+    .event-field{min-height:380px;}
+    .p2,.p5{display:none;}
+    .p1{width:88px;height:112px;}
+    .p3{width:104px;height:78px;}
+    .p4{width:92px;height:120px;}
+    .p6{width:100px;height:132px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .event-particle{animation:none;opacity:.9;transform:none;}
+  }
 
   /* member */
   .reveal-scale{opacity:0;transform:scale(.94);transition:opacity 1s ease, transform 1s ease;}
@@ -493,7 +499,7 @@
   .hero-inner .reveal:nth-child(2){transition-delay:.12s;}
   .hero-inner .reveal:nth-child(3){transition-delay:.24s;}
 </style>
-<noscript><style>.reveal,.reveal-scale,.pop-in{opacity:1 !important;transform:none !important;}</style></noscript>
+<noscript><style>.reveal,.reveal-scale{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body>
 
@@ -758,21 +764,19 @@
   </section>
 
   <section class="section alt" id="events">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="section-eyebrow">All Year</p>
-        <h2 class="section-title">우리의 1년</h2>
-        <p class="section-lead">혼자 일하지만, 혼자는 아닙니다.</p>
-      </div>
-    </div>
-    <div class="event-gallery-wrap">
-      <div class="event-gallery">
-        <div class="event-item pop-in"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
-        <div class="event-item pop-in"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
-        <div class="event-item pop-in"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
-        <div class="event-item pop-in"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
-        <div class="event-item pop-in"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
-        <div class="event-item pop-in"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
+    <div class="event-field">
+      <div class="event-particle p1"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
+      <div class="event-particle p2"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
+      <div class="event-particle p3"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
+      <div class="event-particle p4"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
+      <div class="event-particle p5"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
+      <div class="event-particle p6"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="section-eyebrow">All Year</p>
+          <h2 class="section-title">우리의 1년</h2>
+          <p class="section-lead">혼자 일하지만, 혼자는 아닙니다.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -907,7 +911,7 @@
 (function(){
   // scroll-reveal + sticky-nav shadow
   var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var revealEls = document.querySelectorAll('.reveal, .reveal-scale, .pop-in');
+  var revealEls = document.querySelectorAll('.reveal, .reveal-scale');
   if(!reduceMotion && 'IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
