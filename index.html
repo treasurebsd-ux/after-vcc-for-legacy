@@ -223,32 +223,6 @@
     margin-top:8px;font-size:0.88rem;font-weight:600;color:var(--text-secondary);
   }
 
-  /* MBA 13기 schedule */
-  .mba-rounds{margin-top:8px;}
-  .mba-round{margin-bottom:26px;}
-  .mba-round:last-child{margin-bottom:0;}
-  .mba-round-head{
-    display:inline-flex;align-items:center;gap:10px;
-    border:1px solid var(--line-strong);border-radius:999px;
-    padding:8px 18px;font-weight:700;font-size:0.9rem;margin-bottom:10px;
-  }
-  .mba-round-head span{
-    font-family:var(--font-en);color:var(--accent);font-weight:700;font-size:0.86rem;
-  }
-  .mba-sessions{border-top:1px solid var(--line);}
-  .mba-session{
-    display:grid;grid-template-columns:104px 1fr auto;gap:14px;align-items:baseline;
-    padding:11px 2px;border-bottom:1px solid var(--line);font-size:0.86rem;
-  }
-  .mba-session-time{font-family:var(--font-en);color:var(--text-tertiary);font-size:0.78rem;}
-  .mba-session-title{color:var(--text-primary);}
-  .mba-session-name{color:var(--text-secondary);font-size:0.82rem;white-space:nowrap;}
-  @media (max-width:600px){
-    .mba-session{grid-template-columns:1fr;gap:3px;padding:14px 2px;}
-    .mba-session-time{font-weight:600;color:var(--accent);}
-    .mba-session-name{white-space:normal;}
-  }
-
   /* saturday */
   .saturday-poster-grid{display:grid;gap:16px;grid-template-columns:repeat(2,1fr);}
   .saturday-poster{border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--bg-surface-2);}
@@ -280,7 +254,7 @@
 
   /* events — ambient photo field: photos burst outward from center, blurred to sharp, on endless loop */
   .event-field{
-    position:relative;min-height:860px;
+    position:relative;min-height:920px;
     display:flex;align-items:center;justify-content:center;
     overflow:hidden;
   }
@@ -295,11 +269,6 @@
     will-change:transform,opacity,filter;
   }
   .event-particle img{width:100%;height:100%;object-fit:cover;display:block;}
-  .event-item-label{
-    position:absolute;left:0;right:0;bottom:0;padding:9px 12px;
-    font-size:0.74rem;font-weight:700;color:#fff;
-    background:linear-gradient(180deg,transparent,rgba(0,0,0,0.72) 75%);
-  }
   @keyframes eventBurst{
     0%{opacity:0;filter:blur(18px);transform:translate(-50%,-50%) translate(0,0) scale(.28);}
     10%{opacity:.9;filter:blur(9px);transform:translate(-50%,-50%) translate(calc(var(--dx) * .35),calc(var(--dy) * .35)) scale(.6);}
@@ -307,27 +276,20 @@
     78%{opacity:1;filter:blur(0);transform:translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(1);}
     100%{opacity:0;filter:blur(5px);transform:translate(-50%,-50%) translate(calc(var(--dx) * 1.1),calc(var(--dy) * 1.1)) scale(1.06);}
   }
-  .p1 {--dx:-480px;--dy:-170px;width:200px;height:250px;animation-duration:9.5s; animation-delay:-1s;}
-  .p2 {--dx:-30px; --dy:-260px;width:170px;height:210px;animation-duration:10.5s;animation-delay:-4.2s;}
-  .p3 {--dx:430px; --dy:-190px;width:220px;height:170px;animation-duration:8.6s; animation-delay:-6.5s;}
-  .p4 {--dx:-520px;--dy:130px; width:190px;height:230px;animation-duration:11s;  animation-delay:-0.5s;}
-  .p5 {--dx:70px;  --dy:250px; width:190px;height:150px;animation-duration:9.2s; animation-delay:-2.8s;}
-  .p6 {--dx:500px; --dy:160px; width:210px;height:270px;animation-duration:10s;  animation-delay:-7.4s;}
-  .p7 {--dx:-230px;--dy:-340px;width:140px;height:170px;animation-duration:8.8s; animation-delay:-3.6s;}
-  .p8 {--dx:260px; --dy:-330px;width:150px;height:120px;animation-duration:9.8s; animation-delay:-5.5s;}
-  .p9 {--dx:-330px;--dy:300px; width:160px;height:200px;animation-duration:10.8s;animation-delay:-1.9s;}
-  .p10{--dx:340px; --dy:330px; width:170px;height:130px;animation-duration:9s;   animation-delay:-8.2s;}
-  .p11{--dx:-610px;--dy:-40px; width:130px;height:160px;animation-duration:11.4s;animation-delay:-4.9s;}
-  .p12{--dx:610px; --dy:-50px; width:150px;height:190px;animation-duration:8.4s; animation-delay:-6.1s;}
+  .p1{--dx:-550px;--dy:-195px;width:270px;height:335px;animation-duration:9.5s; animation-delay:-1s;}
+  .p2{--dx:-35px; --dy:-300px;width:230px;height:285px;animation-duration:10.5s;animation-delay:-4.2s;}
+  .p3{--dx:495px; --dy:-220px;width:295px;height:230px;animation-duration:8.6s; animation-delay:-6.5s;}
+  .p4{--dx:-600px;--dy:150px; width:255px;height:310px;animation-duration:11s;  animation-delay:-0.5s;}
+  .p5{--dx:80px;  --dy:290px; width:255px;height:200px;animation-duration:9.2s; animation-delay:-2.8s;}
+  .p6{--dx:575px; --dy:185px; width:285px;height:365px;animation-duration:10s;  animation-delay:-7.4s;}
   @media (max-width:760px){
-    .event-field{min-height:480px;}
-    .p7,.p8,.p9,.p10,.p11,.p12{display:none;}
-    .p1 {--dx:-140px;--dy:-150px;width:120px;height:150px;}
-    .p2 {--dx:0px;   --dy:-215px;width:100px;height:126px;}
-    .p3 {--dx:140px; --dy:-150px;width:130px;height:100px;}
-    .p4 {--dx:-150px;--dy:145px; width:112px;height:138px;}
-    .p5 {--dx:5px;   --dy:210px; width:112px;height:88px;}
-    .p6 {--dx:150px; --dy:150px; width:124px;height:158px;}
+    .event-field{min-height:560px;}
+    .p1{--dx:-175px;--dy:-188px;width:150px;height:188px;}
+    .p2{--dx:0px;   --dy:-269px;width:125px;height:158px;}
+    .p3{--dx:175px; --dy:-188px;width:163px;height:125px;}
+    .p4{--dx:-188px;--dy:181px; width:140px;height:173px;}
+    .p5{--dx:6px;   --dy:263px; width:140px;height:110px;}
+    .p6{--dx:188px; --dy:188px; width:155px;height:198px;}
   }
   @media (prefers-reduced-motion:reduce){
     .event-particle{animation:none;opacity:.85;filter:none;transform:translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(1);}
@@ -521,7 +483,6 @@
       <a href="#intro">소개</a>
       <a href="#curriculum">커리큘럼</a>
       <a href="#system">사업단 시스템</a>
-      <a href="#mba">MBA 13기</a>
       <a href="#saturday">토요특강</a>
       <a href="#events">행사</a>
       <a href="#member">멤버</a>
@@ -559,7 +520,7 @@
           <div class="t-time">10:10–11:10</div>
           <div>
             <div class="t-chapter">Chapter 1</div>
-            <div class="t-title">금융빌딩 / 성공사례</div>
+            <div class="t-title">가족법인을 활용한 금융빌딩 전략</div>
             <div class="t-speaker">김희연 회계사</div>
           </div>
         </li>
@@ -571,7 +532,7 @@
           <div class="t-time">11:25–11:45</div>
           <div>
             <div class="t-chapter">Chapter 2</div>
-            <div class="t-title">계약사례</div>
+            <div class="t-title">세일즈 해커스</div>
             <div class="t-speaker">오성우 세무사, 김대민 세무사</div>
           </div>
         </li>
@@ -579,7 +540,7 @@
           <div class="t-time">11:45–12:45</div>
           <div>
             <div class="t-chapter">Chapter 3</div>
-            <div class="t-title">컨설팅 강의</div>
+            <div class="t-title">자본거래컨설팅</div>
             <div class="t-speaker">박병곤 회계사</div>
           </div>
         </li>
@@ -587,7 +548,7 @@
 
       <div class="spk-grid">
         <div class="spk-card reveal">
-          <div class="spk-photo"><img src="images/team/team-10.jpg" alt="김희연 회계사" loading="lazy"></div>
+          <div class="spk-photo"><img src="images/spk-kim-heeyeon.jpg" alt="김희연 회계사" loading="lazy"></div>
           <div class="spk-name">김희연 회계사</div>
         </div>
         <div class="spk-card reveal">
@@ -599,7 +560,7 @@
           <div class="spk-name">김대민 세무사</div>
         </div>
         <div class="spk-card reveal">
-          <div class="spk-photo"><img src="images/team/team-01.jpg" alt="박병곤 회계사" loading="lazy"></div>
+          <div class="spk-photo"><img src="images/spk-park-byeonggon.jpg" alt="박병곤 회계사" loading="lazy"></div>
           <div class="spk-name">박병곤 회계사</div>
         </div>
       </div>
@@ -652,99 +613,7 @@
     </div>
   </section>
 
-  <section class="section" id="mba">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="section-eyebrow">Consulting MBA</p>
-        <h2 class="section-title">MBA 13기</h2>
-        <p class="section-lead">
-          전문직 컨설팅 MBA 과정(C-MBA 13기)의 회차별 일정표입니다. 사업단이 아닌 외부 프로그램 안내이며, 참고용으로만 제공됩니다.
-        </p>
-      </div>
-      <div class="mba-rounds">
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>1회</span> 8월 11일 (화)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">11:00–12:00</div><div class="mba-session-title">MBA 12기 오리엔테이션</div><div class="mba-session-name">최기철 대표 & 최용대 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">13:00–15:00</div><div class="mba-session-title">2026 본업 부스팅 컨설팅 트렌드 speed scan</div><div class="mba-session-name">김태우 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">15:00–16:30</div><div class="mba-session-title">기업난제, 차명주식 정리 솔루션</div><div class="mba-session-name">박병곤 회계사</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">전문직 세일즈 프로세스와 화법 노하우</div><div class="mba-session-name">엄창현 세무사</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>2회</span> 8월 13일 (목)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–15:00</div><div class="mba-session-title">New 이익소각과 실전 솔루션</div><div class="mba-session-name">정성우 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">15:00–16:30</div><div class="mba-session-title">2026년 국세청 세무조사 트렌드(성실사업자 및 상속 등)</div><div class="mba-session-name">황지환 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">법인전환을 위한 핵심 정관</div><div class="mba-session-name">김철현 세무사</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>3회</span> 8월 18일 (화)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–14:30</div><div class="mba-session-title">변호사가 알려주는 컨설팅 활용 핵심 민법</div><div class="mba-session-name">조태진 변호사</div></div>
-            <div class="mba-session"><div class="mba-session-time">14:30–16:30</div><div class="mba-session-title">감정평가 100% 활용 절세 레버리지</div><div class="mba-session-name">왕종혁 감정평가사 & 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">성공하는 전문직들의 마인드셋</div><div class="mba-session-name">여종주 대표</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>4회</span> 8월 21일 (금)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–14:30</div><div class="mba-session-title">CEO 엑싯 전략을 위한 보수 및 퇴직 플랜 실무</div><div class="mba-session-name">구은우 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">14:30–16:30</div><div class="mba-session-title">가지급금 솔루션 실무 프로세스</div><div class="mba-session-name">박제율 전문위원</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">가족법인과 금융 세일즈</div><div class="mba-session-name">김윤식 세무사</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>5회</span> 8월 25일 (화)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–15:00</div><div class="mba-session-title">프리미엄 사내근로복지기금</div><div class="mba-session-name">선윤정 노무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">15:00–16:30</div><div class="mba-session-title">직무발명제도 및 기업 밸류업 컨셉</div><div class="mba-session-name">한승재 변리사</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">가업상속 & 증여특례 실전 Case Study</div><div class="mba-session-name">이종헌 회계사</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>6회</span> 8월 28일 (금)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–15:00</div><div class="mba-session-title">법인컨설팅 최신 트렌드 총합</div><div class="mba-session-name">백근장 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">15:00–16:30</div><div class="mba-session-title">2026 필수체크 핵심노무 이슈 및 지원금</div><div class="mba-session-name">김성종 노무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">전문직 세일즈 패러다임 시프트</div><div class="mba-session-name">구병호 세무사</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>7회</span> 9월 1일 (화)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–15:00</div><div class="mba-session-title">스마트 법인전환을 통한 수수료 디자인</div><div class="mba-session-name">이대권 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">15:00–16:30</div><div class="mba-session-title">CEO를 위한 손해보험 구조 분석</div><div class="mba-session-name">이강현 전문위원</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">고객 발굴을 위한 SNS 마케팅</div><div class="mba-session-name">김현주 세무사</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>8회</span> 9월 3일 (목)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–14:30</div><div class="mba-session-title">보험 상품을 활용한 상속증여 상담 사례</div><div class="mba-session-name">최은주 전문위원</div></div>
-            <div class="mba-session"><div class="mba-session-time">14:30–16:00</div><div class="mba-session-title">보험 가입 심사 구조 이해</div><div class="mba-session-name">유상연 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:00–18:00</div><div class="mba-session-title">세금과 보험 핵심 실무 이론</div><div class="mba-session-name">최용대 세무사</div></div>
-          </div>
-        </div>
-        <div class="mba-round reveal">
-          <div class="mba-round-head"><span>9회</span> 9월 4일 (금)</div>
-          <div class="mba-sessions">
-            <div class="mba-session"><div class="mba-session-time">13:00–15:00</div><div class="mba-session-title">법인 고객 사후관리 시스템</div><div class="mba-session-name">여종주 대표</div></div>
-            <div class="mba-session"><div class="mba-session-time">15:00–16:30</div><div class="mba-session-title">실전 계약사례 Case Study, 제안의 기술</div><div class="mba-session-name">김태수 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">16:30–18:00</div><div class="mba-session-title">전문직 세일즈 프로세스 실전</div><div class="mba-session-name">지아룬 세무사</div></div>
-            <div class="mba-session"><div class="mba-session-time">18:00–19:00</div><div class="mba-session-title">MBA 12기 수료식</div><div class="mba-session-name">리치디바인 (최용대 단장)</div></div>
-          </div>
-        </div>
-      </div>
-      <p class="fine-note reveal">※ 일정에 따라 변동 가능성이 있으며, 변동 시 사전 고지됩니다.</p>
-      <a class="btn reveal" href="https://gimgihwan127-art.github.io/MBA_test/" target="_blank" rel="noopener">MBA 13기 페이지 보기 ↗</a>
-      <div class="callout reveal">
-        <b>안내</b> — 연결된 페이지 내 [신청하기] · [카카오톡 문의하기] 버튼은 이용하지 말아주세요.
-        참석/신청을 원하시는 분은 사업단에 개별로 문의해 주시기 바랍니다.
-      </div>
-    </div>
-  </section>
+  
 
   <section class="section" id="saturday">
     <div class="wrap">
@@ -776,22 +645,15 @@
 
   <section class="section alt" id="events">
     <div class="event-field">
-      <div class="event-particle p1"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
-      <div class="event-particle p2"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
-      <div class="event-particle p3"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
-      <div class="event-particle p4"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
-      <div class="event-particle p5"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
-      <div class="event-particle p6"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
-      <div class="event-particle p7"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
-      <div class="event-particle p8"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
-      <div class="event-particle p9"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
-      <div class="event-particle p10"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
-      <div class="event-particle p11"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
-      <div class="event-particle p12"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
+      <div class="event-particle p1"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"></div>
+      <div class="event-particle p2"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"></div>
+      <div class="event-particle p3"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"></div>
+      <div class="event-particle p4"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"></div>
+      <div class="event-particle p5"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"></div>
+      <div class="event-particle p6"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"></div>
       <div class="wrap">
         <div class="section-head reveal">
-          <h2 class="section-title">우리의 1년</h2>
-          <p class="section-lead">혼자 일하지만, 혼자는 아닙니다.</p>
+          <h2 class="section-title">Legacy Memories</h2>
         </div>
       </div>
     </div>
