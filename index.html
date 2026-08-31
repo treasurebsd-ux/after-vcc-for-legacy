@@ -278,48 +278,59 @@
   .section.alt .callout{background:var(--bg-void);}
   .callout b{color:var(--text-primary);}
 
-  /* events — ambient photo field: images continuously float forward, one after another, on loop */
+  /* events — ambient photo field: photos burst outward from center, blurred to sharp, on endless loop */
   .event-field{
-    position:relative;min-height:520px;
+    position:relative;min-height:860px;
     display:flex;align-items:center;justify-content:center;
     overflow:hidden;
   }
-  .event-field .wrap{position:relative;z-index:5;pointer-events:none;}
+  .event-field .wrap{position:relative;z-index:5;pointer-events:none;text-align:center;}
+  .event-field .section-head{text-align:center;}
+  .event-field .section-lead{margin-left:auto;margin-right:auto;}
   .event-particle{
-    position:absolute;z-index:1;
-    border-radius:2px;overflow:hidden;border:1px solid var(--line);
+    position:absolute;top:50%;left:50%;z-index:1;
+    border-radius:3px;overflow:hidden;border:1px solid var(--line);
     background:var(--bg-surface-2);
-    opacity:0;transform:scale(.55) translateY(16px);
-    animation-name:eventFloat;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
+    animation-name:eventBurst;animation-timing-function:ease-out;animation-iteration-count:infinite;
+    will-change:transform,opacity,filter;
   }
   .event-particle img{width:100%;height:100%;object-fit:cover;display:block;}
   .event-item-label{
-    position:absolute;left:0;right:0;bottom:0;padding:8px 11px;
-    font-size:0.72rem;font-weight:700;color:#fff;
+    position:absolute;left:0;right:0;bottom:0;padding:9px 12px;
+    font-size:0.74rem;font-weight:700;color:#fff;
     background:linear-gradient(180deg,transparent,rgba(0,0,0,0.72) 75%);
   }
-  @keyframes eventFloat{
-    0%{opacity:0;transform:scale(.55) translateY(16px);}
-    14%{opacity:1;transform:scale(1) translateY(0);}
-    72%{opacity:1;transform:scale(1) translateY(0);}
-    100%{opacity:0;transform:scale(.7) translateY(-12px);}
+  @keyframes eventBurst{
+    0%{opacity:0;filter:blur(18px);transform:translate(-50%,-50%) translate(0,0) scale(.28);}
+    10%{opacity:.9;filter:blur(9px);transform:translate(-50%,-50%) translate(calc(var(--dx) * .35),calc(var(--dy) * .35)) scale(.6);}
+    42%{opacity:1;filter:blur(0);transform:translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(1);}
+    78%{opacity:1;filter:blur(0);transform:translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(1);}
+    100%{opacity:0;filter:blur(5px);transform:translate(-50%,-50%) translate(calc(var(--dx) * 1.1),calc(var(--dy) * 1.1)) scale(1.06);}
   }
-  .p1{top:6%; left:7%;  width:120px;height:150px;animation-duration:7.5s;animation-delay:-1s;}
-  .p2{top:9%; left:47%; width:92px; height:120px;animation-duration:8.5s;animation-delay:-3.2s;}
-  .p3{top:12%;left:79%; width:150px;height:110px;animation-duration:6.8s;animation-delay:-5s;}
-  .p4{top:60%;left:5%;  width:130px;height:170px;animation-duration:9s;  animation-delay:-0.5s;}
-  .p5{top:66%;left:43%; width:100px;height:80px; animation-duration:7.2s;animation-delay:-2.1s;}
-  .p6{top:55%;left:77%; width:140px;height:190px;animation-duration:8s;  animation-delay:-6s;}
+  .p1 {--dx:-480px;--dy:-170px;width:200px;height:250px;animation-duration:9.5s; animation-delay:-1s;}
+  .p2 {--dx:-30px; --dy:-260px;width:170px;height:210px;animation-duration:10.5s;animation-delay:-4.2s;}
+  .p3 {--dx:430px; --dy:-190px;width:220px;height:170px;animation-duration:8.6s; animation-delay:-6.5s;}
+  .p4 {--dx:-520px;--dy:130px; width:190px;height:230px;animation-duration:11s;  animation-delay:-0.5s;}
+  .p5 {--dx:70px;  --dy:250px; width:190px;height:150px;animation-duration:9.2s; animation-delay:-2.8s;}
+  .p6 {--dx:500px; --dy:160px; width:210px;height:270px;animation-duration:10s;  animation-delay:-7.4s;}
+  .p7 {--dx:-230px;--dy:-340px;width:140px;height:170px;animation-duration:8.8s; animation-delay:-3.6s;}
+  .p8 {--dx:260px; --dy:-330px;width:150px;height:120px;animation-duration:9.8s; animation-delay:-5.5s;}
+  .p9 {--dx:-330px;--dy:300px; width:160px;height:200px;animation-duration:10.8s;animation-delay:-1.9s;}
+  .p10{--dx:340px; --dy:330px; width:170px;height:130px;animation-duration:9s;   animation-delay:-8.2s;}
+  .p11{--dx:-610px;--dy:-40px; width:130px;height:160px;animation-duration:11.4s;animation-delay:-4.9s;}
+  .p12{--dx:610px; --dy:-50px; width:150px;height:190px;animation-duration:8.4s; animation-delay:-6.1s;}
   @media (max-width:760px){
-    .event-field{min-height:380px;}
-    .p2,.p5{display:none;}
-    .p1{width:88px;height:112px;}
-    .p3{width:104px;height:78px;}
-    .p4{width:92px;height:120px;}
-    .p6{width:100px;height:132px;}
+    .event-field{min-height:480px;}
+    .p7,.p8,.p9,.p10,.p11,.p12{display:none;}
+    .p1 {--dx:-140px;--dy:-150px;width:120px;height:150px;}
+    .p2 {--dx:0px;   --dy:-215px;width:100px;height:126px;}
+    .p3 {--dx:140px; --dy:-150px;width:130px;height:100px;}
+    .p4 {--dx:-150px;--dy:145px; width:112px;height:138px;}
+    .p5 {--dx:5px;   --dy:210px; width:112px;height:88px;}
+    .p6 {--dx:150px; --dy:150px; width:124px;height:158px;}
   }
   @media (prefers-reduced-motion:reduce){
-    .event-particle{animation:none;opacity:.9;transform:none;}
+    .event-particle{animation:none;opacity:.85;filter:none;transform:translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(1);}
   }
 
   /* member */
@@ -771,9 +782,14 @@
       <div class="event-particle p4"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
       <div class="event-particle p5"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
       <div class="event-particle p6"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
+      <div class="event-particle p7"><img src="images/event-ananti.jpg" alt="아난티" loading="lazy"><span class="event-item-label">아난티</span></div>
+      <div class="event-particle p8"><img src="images/event-danang.jpg" alt="다낭" loading="lazy"><span class="event-item-label">다낭</span></div>
+      <div class="event-particle p9"><img src="images/event-giheung.jpg" alt="기흥" loading="lazy"><span class="event-item-label">기흥</span></div>
+      <div class="event-particle p10"><img src="images/event-july.jpg" alt="7월 회식" loading="lazy"><span class="event-item-label">7월 회식</span></div>
+      <div class="event-particle p11"><img src="images/event-yearend.jpg" alt="12월 송년회" loading="lazy"><span class="event-item-label">12월 송년회</span></div>
+      <div class="event-particle p12"><img src="images/event-golf.jpg" alt="골프행사" loading="lazy"><span class="event-item-label">골프행사</span></div>
       <div class="wrap">
         <div class="section-head reveal">
-          <p class="section-eyebrow">All Year</p>
           <h2 class="section-title">우리의 1년</h2>
           <p class="section-lead">혼자 일하지만, 혼자는 아닙니다.</p>
         </div>
@@ -941,10 +957,8 @@
 })();
 
 (function(){
-  // TODO: 아래 주소를 본인의 Formspree 폼 엔드포인트로 교체하세요.
-  // Formspree(https://formspree.io)에서 폼을 만들면 https://formspree.io/f/xxxxxxxx 형태의 주소를 받습니다.
-  // 자세한 연동 방법은 함께 전달드린 안내문을 참고해주세요.
-  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+  // Google Apps Script 웹 앱(구글 시트 연동) 배포 주소.
+  var GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzZugZ2hFzuHPbhCkbWyZA_02hKJIxnEcMXaedorQPiwqcf_0pqN2g7fhgD_kXuDVetAQ/exec';
 
   var licenseSelect = document.getElementById('f-license');
   var otherWrap = document.getElementById('licenseOtherWrap');
@@ -983,36 +997,24 @@
       return;
     }
 
-    if(FORMSPREE_ENDPOINT.indexOf('YOUR_FORM_ID') !== -1){
-      showStatus('err', 'Formspree 연동이 아직 설정되지 않았습니다. 관리자에게 문의해주세요.');
-      return;
-    }
-
     var payload = new FormData();
     payload.append('성함', entry.name);
     payload.append('자격사', entry.license);
     payload.append('연락처', entry.phone);
     payload.append('참석 일정', entry.attendance);
-    payload.append('_subject', 'After-VCC 참석 설문 - ' + entry.name);
+    payload.append('제출시각', new Date().toLocaleString('ko-KR'));
 
     if(submitBtn){ submitBtn.disabled = true; }
     showStatus('ok', '제출 중입니다...');
 
-    fetch(FORMSPREE_ENDPOINT, {
+    fetch(GAS_ENDPOINT, {
       method: 'POST',
-      body: payload,
-      headers: { 'Accept': 'application/json' }
-    }).then(function(res){
-      if(res.ok){
-        showStatus('ok', '<b>제출이 완료되었습니다.</b> 참석 의사를 알려주셔서 감사합니다.');
-        form.reset();
-        otherWrap.classList.remove('show');
-      } else {
-        return res.json().then(function(data){
-          var msg = (data && data.errors && data.errors.length) ? data.errors.map(function(er){ return er.message; }).join(', ') : '제출 중 오류가 발생했습니다.';
-          throw new Error(msg);
-        });
-      }
+      mode: 'no-cors',
+      body: payload
+    }).then(function(){
+      showStatus('ok', '<b>제출이 완료되었습니다.</b> 참석 의사를 알려주셔서 감사합니다.');
+      form.reset();
+      otherWrap.classList.remove('show');
     }).catch(function(err){
       showStatus('err', '제출에 실패했습니다. 잠시 후 다시 시도해주시거나 사업단으로 직접 연락해주세요.' + (err && err.message ? ' (' + err.message + ')' : ''));
     }).finally(function(){
